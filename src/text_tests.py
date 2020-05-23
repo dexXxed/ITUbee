@@ -1,16 +1,8 @@
-'''
-Created on Dec 9, 2016
-
-Tests for texts implementation
-
-@author: andrey.justo
-'''
-
-from itubee.main import ITUbeeTexts
+from itubee.main import ITUBEETEXTS
 import time
 
 start = time.time()
-itubee = ITUbeeTexts()
+itubee = ITUBEETEXTS()
 
 key2 = '00000000000000000080'
 plain_text2 = 'Andrey Rocks'

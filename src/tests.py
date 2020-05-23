@@ -1,15 +1,7 @@
-'''
-Created on Dec 9, 2016
-
-Tests for hexadecimal implementation
-
-@author: andrey.justo
-'''
-
-from itubee.main import ITUbee
+from itubee.main import ITUBEE
 import time
 
-itubee = ITUbee()
+itubee = ITUBEE()
 
 # First test
 plain_text = '01000000000000000000'
