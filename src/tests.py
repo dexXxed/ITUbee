@@ -1,60 +1,33 @@
 from itubee.main import ITUBEE
-import time
+from functools import wraps
+from time import time
 
-itubee = ITUBEE()
 
-# First test
-plain_text = '01000000000000000000'
-key = '00000000000000000080'
+def timing(f):
+    @wraps(f)
+    def wrap(*args, **kw):
+        ts = time()
+        result = f(*args, **kw)
+        te = time()
+        print(f'func:{f.__name__} args:[{args}, {kw}] Выполнялась: {te - ts} sec')
+        return result
+    return wrap
 
-start = time.time()
-enc = itubee.encrypt(plain_text, key)
-print(enc)
 
-dec = itubee.decrypt(enc, key)
-print(dec)
+@timing
+def itubee_logic(itubee, plain_text, key):
+    enc = itubee.encrypt(plain_text, key)
+    print(enc)
 
-end = time.time()
-print(end - start)
+    dec = itubee.decrypt(enc, key)
+    print(dec)
 
-# 2 test
-plain_text = '00000000000000000000'
-key = '00000000000000000000'
 
-start = time.time()
-enc = itubee.encrypt(plain_text, key)
-print(enc)
+if __name__ == '__main__':
+    itubee = ITUBEE()
 
-dec = itubee.decrypt(enc, key)
-print(dec)
+    itubee_logic(itubee, '01000000000000000000', '00000000000000000080')
 
-end = time.time()
-print(end - start)
+    itubee_logic(itubee, '00000000000000000000', '00000000000000000000')
 
-# 3 test
-plain_text = '6925278951fbf3b25ccc'
-key = 'c538bd9289822be43363'
-
-start = time.time()
-enc = itubee.encrypt(plain_text, key)
-print(enc)
-
-dec = itubee.decrypt(enc, key)
-print(dec)
-
-end = time.time()
-print(end - start)
-
-# 4 test
-plain_text = '6925288A51fCf3b25ccc'
-key = '6925288A51fCf3b25ccc'
-
-start = time.time()
-enc = itubee.encrypt(plain_text, key)
-print(enc)
-
-dec = itubee.decrypt(enc, key)
-print(dec)
-
-end = time.time()
-print(end - start)
+    itubee_logic(itubee, '6925278951fbf3b25ccc', 'c538bd9289822be43363')
